@@ -3,7 +3,7 @@
 
 class SoundManager {
   private ctx: AudioContext | null = null;
-  private isMuted: boolean = true;
+  private isMuted: boolean = false;
   private ambientInterval: number | null = null;
   private masterGain: GainNode | null = null;
   private isPlayingAmbient: boolean = false;
@@ -23,6 +23,37 @@ class SoundManager {
 
   public get muted(): boolean {
     return this.isMuted;
+  }
+
+  public startAutoMusic() {
+    this.isMuted = false;
+    try {
+      this.initContext();
+      this.startAmbient();
+    } catch {
+      // Browser autoplay policy might suspend context
+    }
+
+    const unlock = () => {
+      if (!this.isMuted) {
+        this.initContext();
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+        if (!this.isPlayingAmbient) {
+          this.startAmbient();
+        }
+      }
+      window.removeEventListener('pointerdown', unlock);
+      window.removeEventListener('keydown', unlock);
+      window.removeEventListener('touchstart', unlock);
+      window.removeEventListener('scroll', unlock);
+    };
+
+    window.addEventListener('pointerdown', unlock, { passive: true });
+    window.addEventListener('keydown', unlock, { passive: true });
+    window.addEventListener('touchstart', unlock, { passive: true });
+    window.addEventListener('scroll', unlock, { passive: true });
   }
 
   public toggleMute(): boolean {

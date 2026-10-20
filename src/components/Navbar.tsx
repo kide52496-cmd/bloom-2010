@@ -1,5 +1,5 @@
 import React from 'react';
-import { Volume2, VolumeX, Sparkles, Flower2, Heart } from 'lucide-react';
+import { Volume2, VolumeX, Sparkles, Flower2 } from 'lucide-react';
 
 interface NavbarProps {
   isMuted: boolean;
@@ -30,35 +30,11 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
           <div className="brand-text">
             <span className="brand-title">BLOOM 20.10</span>
-            <span className="brand-sub">Một Ngày Dành Riêng Cho Bạn</span>
+            <span className="brand-sub">Quà 20/10 Gửi Bạn Thân · Từ Dương 🌸</span>
           </div>
         </button>
 
-        {/* Navigation Links */}
-        <nav className="desktop-nav" aria-label="Điều hướng chính">
-          <button
-            onClick={() => onNavigate('cute-picker')}
-            className="nav-link-btn highlight"
-            style={{ background: 'rgba(255, 117, 143, 0.25)', color: '#C02654', fontWeight: 700 }}
-          >
-            <span>Hái Hoa Cute 🌸</span>
-          </button>
-          <button
-            onClick={() => onNavigate('generator')}
-            className="nav-link-btn"
-          >
-            <Heart size={14} className="inline-icon" />
-            Viết Thiệp Bạn Thân 💌
-          </button>
-          <button
-            onClick={() => onNavigate('closing')}
-            className="nav-link-btn"
-          >
-            Lời Chúc Từ Dương ✨
-          </button>
-        </nav>
-
-        {/* Action Controls */}
+        {/* Action Controls: Auto-active music & petals */}
         <div className="header-actions">
           {/* Petals Toggle */}
           <button
@@ -83,7 +59,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {!isMuted ? (
               <>
                 <Volume2 size={16} className="sound-pulse" />
-                <span className="btn-label-desktop">Giai điệu: Bật</span>
+                <span className="btn-label-desktop">Giai điệu: Đang phát 🎵</span>
               </>
             ) : (
               <>

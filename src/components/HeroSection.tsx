@@ -1,14 +1,12 @@
 import React from 'react';
-import { Heart, Sparkles, ChevronDown, Smile } from 'lucide-react';
+import { Sparkles, ChevronDown, Smile } from 'lucide-react';
 
 interface HeroSectionProps {
   onPickFlower: () => void;
-  onSendWish: () => void;
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
   onPickFlower,
-  onSendWish,
 }) => {
   return (
     <section id="hero" className="hero-section">
@@ -88,7 +86,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           Chạm nhẹ vào đóa hoa bạn thích để bốc thăm nhận lời chúc và đặc quyền may mắn nhé!
         </p>
 
-        {/* Call to Actions */}
+        {/* Call to Actions - Single Big Cute Button */}
         <div className="hero-cta-group animate-slide-up-delay-2">
           <button
             onClick={onPickFlower}
@@ -96,23 +94,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             style={{
               background: 'linear-gradient(135deg, #FF758F, #C02654)',
               boxShadow: '0 12px 28px rgba(255, 117, 143, 0.35)',
-              padding: '1.05rem 2.25rem',
-              fontSize: '1.05rem',
+              padding: '1.15rem 2.5rem',
+              fontSize: '1.1rem',
             }}
             aria-label="Chọn hoa nhận lời chúc cute cho bạn bè"
           >
-            <Smile size={20} className="btn-icon" />
+            <Smile size={22} className="btn-icon" />
             <span>Hái hoa nhận quà cute nè 🌷</span>
             <div className="btn-shine" aria-hidden="true" />
-          </button>
-
-          <button
-            onClick={onSendWish}
-            className="btn-secondary"
-            aria-label="Tự tay viết thiệp gửi bạn bè"
-          >
-            <Heart size={18} className="btn-icon" />
-            <span>Viết thiệp gửi bạn thân 💌</span>
           </button>
         </div>
 

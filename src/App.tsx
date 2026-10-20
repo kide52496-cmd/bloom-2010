@@ -1,17 +1,18 @@
-import { useState, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Navbar } from './components/Navbar';
 import { PetalCanvas } from './components/PetalCanvas';
 import { HeroSection } from './components/HeroSection';
 import { CuteFlowerPicker } from './components/CuteFlowerPicker';
-import { GreetingGenerator } from './components/GreetingGenerator';
-import { ClosingSection } from './components/ClosingSection';
 import { soundManager } from './utils/sound';
-import type { CustomCardData } from './types';
 
 export function App() {
-  const [isMuted, setIsMuted] = useState(soundManager.muted);
+  const [isMuted, setIsMuted] = useState(false);
   const [petalsActive, setPetalsActive] = useState(true);
-  const [generatorData] = useState<Partial<CustomCardData> | undefined>(undefined);
+
+  // Auto-start ambient music and petals on load
+  useEffect(() => {
+    soundManager.startAutoMusic();
+  }, []);
 
   const handleToggleSound = useCallback(() => {
     const isPlaying = soundManager.toggleMute();
@@ -31,7 +32,7 @@ export function App() {
 
   return (
     <div className="app-container">
-      {/* Floating Petals Canvas */}
+      {/* Floating Petals Canvas - Auto Active */}
       <PetalCanvas active={petalsActive} />
 
       {/* Main Top Navigation */}
@@ -43,27 +44,14 @@ export function App() {
         onNavigate={scrollToSection}
       />
 
-      {/* Main Application Sections - 100% Focused on Friends & Cute Flowers */}
+      {/* Main Content: 100% Focused on Friends & Cute Flowers */}
       <main className="main-content">
         <HeroSection
           onPickFlower={() => scrollToSection('cute-picker')}
-          onSendWish={() => scrollToSection('generator')}
         />
 
         {/* The Star Feature: Cute Flower Fortune Picker for Friends */}
-        <CuteFlowerPicker onScrollToGenerator={() => scrollToSection('generator')} />
-
-        {/* Custom Friend Greeting Card Generator */}
-        <GreetingGenerator
-          key={generatorData?.message ? String(generatorData.createdAt) : 'default'}
-          initialData={generatorData}
-        />
-
-        {/* Friendly Closing Section */}
-        <ClosingSection
-          onScrollToGenerator={() => scrollToSection('generator')}
-          onScrollToTop={() => scrollToSection('hero')}
-        />
+        <CuteFlowerPicker />
       </main>
     </div>
   );

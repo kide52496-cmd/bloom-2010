@@ -7,21 +7,16 @@ import {
   Check, 
   Share2, 
   RotateCcw, 
-  Gift, 
   Smile,
-  ArrowRight,
   PartyPopper
 } from 'lucide-react';
 import { BOTANICAL_FLOWERS } from '../data/flowers';
 import type { FlowerWish } from '../types';
 import { soundManager } from '../utils/sound';
 
-interface CuteFlowerPickerProps {
-  onScrollToGenerator: () => void;
-}
-
-export const CuteFlowerPicker: React.FC<CuteFlowerPickerProps> = ({ onScrollToGenerator }) => {
-  const [selectedFlower, setSelectedFlower] = useState<FlowerWish | null>(null);
+export const CuteFlowerPicker: React.FC = () => {
+  // Pre-select first adorable flower so it's blooming right away!
+  const [selectedFlower, setSelectedFlower] = useState<FlowerWish | null>(() => BOTANICAL_FLOWERS[0]);
   const [copied, setCopied] = useState(false);
   const [shared, setShared] = useState(false);
 
@@ -41,7 +36,7 @@ export const CuteFlowerPicker: React.FC<CuteFlowerPickerProps> = ({ onScrollToGe
 
   const handleCopyCuteWish = async () => {
     if (!selectedFlower) return;
-    const text = `🌸 20/10 Vui Vẻ Nè! Mình tặng bạn đóa ${selectedFlower.name} ${selectedFlower.emoji} (${selectedFlower.meaning})\n\n"${selectedFlower.cuteWish}"\n\n✨ Đặc quyền hôm nay:\n${selectedFlower.cutePerks.map(p => `• ${p}`).join('\n')}\n\n💌 Gửi từ: Dương\n— Trải nghiệm tại BLOOM 20.10`;
+    const text = `🌸 20/10 Vui Vẻ Nè! Mình tặng bạn đóa ${selectedFlower.name} ${selectedFlower.emoji} (${selectedFlower.meaning})\n\n"${selectedFlower.cuteWish}"\n\n✨ Đặc quyền hôm nay:\n${selectedFlower.cutePerks.map(p => `• ${p}`).join('\n')}\n\n💌 Gửi từ: Dương\n— Xem tại: https://kide52496-cmd.github.io/bloom-2010/`;
     try {
       await navigator.clipboard.writeText(text);
       setCopied(true);
@@ -77,14 +72,14 @@ export const CuteFlowerPicker: React.FC<CuteFlowerPickerProps> = ({ onScrollToGe
       <div className="section-header text-center">
         <div className="cute-badge-pill">
           <Smile size={14} className="cute-icon-bounce" />
-          <span>DÀNH TẶNG BẠN BÈ & NGƯỜI THƯƠNG</span>
+          <span>DÀNH TẶNG HỘI BẠN THÂN 20/10</span>
           <Sparkles size={14} className="badge-sparkle" />
         </div>
         <h2 className="section-title">
           Hái Một Đóa Hoa <span className="cute-title-accent">Nhận Ngay Lời Chúc</span> 🌸
         </h2>
         <p className="section-subtitle">
-          Chạm vào bông hoa bạn thấy đáng yêu nhất, một thông điệp siêu ngọt ngào cùng những đặc quyền vui vẻ từ anh <strong>Dương</strong> đang chờ bạn mở ra!
+          Chạm vào bông hoa bạn thấy đáng yêu nhất, một thông điệp siêu ngọt ngào cùng những đặc quyền may mắn từ anh <strong>Dương</strong> đang mở ra cho bạn!
         </p>
       </div>
 
@@ -116,7 +111,7 @@ export const CuteFlowerPicker: React.FC<CuteFlowerPickerProps> = ({ onScrollToGe
                 </span>
               </div>
               <div className="cute-tap-hint">
-                <span>Chọn em</span>
+                <span>{isSelected ? 'Đang nở' : 'Chọn em'}</span>
                 <Sparkles size={12} />
               </div>
             </button>
@@ -147,7 +142,7 @@ export const CuteFlowerPicker: React.FC<CuteFlowerPickerProps> = ({ onScrollToGe
               </div>
               <div className="cute-card-title-group">
                 <span className="cute-card-eyebrow">
-                  ĐÓA HOA BẠN ĐÃ CHỌN
+                  ĐÓA HOA ĐANG NỞ RỘ
                 </span>
                 <h3 className="cute-card-heading">
                   {selectedFlower.name}
@@ -186,9 +181,9 @@ export const CuteFlowerPicker: React.FC<CuteFlowerPickerProps> = ({ onScrollToGe
             <div className="cute-card-signature">
               <div className="cute-author-bubble">
                 <Heart size={14} className="heart-icon-beat" />
-                <span>Thương gửi từ: <strong>Dương</strong></span>
+                <span>Thương gửi từ người bạn: <strong>Dương</strong> 💖</span>
               </div>
-              <span className="cute-wish-date">Chúc mừng Ngày Phụ Nữ Việt Nam 20.10</span>
+              <span className="cute-wish-date">Chúc mừng 20/10 ngập tràn niềm vui!</span>
             </div>
 
             {/* Action Buttons */}
@@ -214,29 +209,25 @@ export const CuteFlowerPicker: React.FC<CuteFlowerPickerProps> = ({ onScrollToGe
 
               <button
                 onClick={() => {
-                  setSelectedFlower(null);
-                  soundManager.playPaperRustle();
+                  soundManager.playCutePopSound();
+                  const nextIdx = (BOTANICAL_FLOWERS.findIndex(f => f.id === selectedFlower.id) + 1) % BOTANICAL_FLOWERS.length;
+                  handlePickFlower(BOTANICAL_FLOWERS[nextIdx]);
                 }}
                 className="btn-cute-action subtle"
-                title="Chọn một đóa hoa khác"
+                title="Đổi sang đóa hoa tiếp theo"
               >
                 <RotateCcw size={15} />
-                <span>Đổi hoa khác nè</span>
-              </button>
-
-              <button
-                onClick={onScrollToGenerator}
-                className="btn-cute-action highlight-link"
-                title="Tự tay viết thiệp riêng"
-              >
-                <Gift size={15} />
-                <span>Tự viết thiệp riêng</span>
-                <ArrowRight size={14} />
+                <span>Đổi hoa khác nè 🌷</span>
               </button>
             </div>
           </div>
         </div>
       )}
+
+      {/* Sweet Footer Note */}
+      <div className="cute-footer-note" style={{ textAlign: 'center', marginTop: '4rem', opacity: 0.8, fontSize: '0.85rem' }}>
+        <p>🌸 <strong>BLOOM 20.10 Friends Edition</strong> · Quà tặng 20/10 gửi hội bạn thân · Tác giả: <strong>Dương</strong></p>
+      </div>
     </section>
   );
 };
