@@ -7,9 +7,8 @@ import { soundManager } from './utils/sound';
 
 export function App() {
   const [isMuted, setIsMuted] = useState(false);
-  const [petalsActive, setPetalsActive] = useState(true);
 
-  // Auto-start ambient music and petals on load
+  // Auto-start ambient music on load
   useEffect(() => {
     soundManager.startAutoMusic();
   }, []);
@@ -17,10 +16,6 @@ export function App() {
   const handleToggleSound = useCallback(() => {
     const isPlaying = soundManager.toggleMute();
     setIsMuted(!isPlaying);
-  }, []);
-
-  const handleTogglePetals = useCallback(() => {
-    setPetalsActive((prev) => !prev);
   }, []);
 
   const scrollToSection = useCallback((sectionId: string) => {
@@ -32,15 +27,13 @@ export function App() {
 
   return (
     <div className="app-container">
-      {/* Floating Petals Canvas - Auto Active */}
-      <PetalCanvas active={petalsActive} />
+      {/* Floating Petals Canvas - Always automatically active */}
+      <PetalCanvas active={true} />
 
-      {/* Main Top Navigation */}
+      {/* Clean Navbar */}
       <Navbar
         isMuted={isMuted}
         onToggleSound={handleToggleSound}
-        petalsActive={petalsActive}
-        onTogglePetals={handleTogglePetals}
         onNavigate={scrollToSection}
       />
 

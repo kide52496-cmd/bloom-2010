@@ -35,25 +35,22 @@ class SoundManager {
     }
 
     const unlock = () => {
-      if (!this.isMuted) {
-        this.initContext();
-        if (this.ctx && this.ctx.state === 'suspended') {
-          this.ctx.resume();
-        }
-        if (!this.isPlayingAmbient) {
-          this.startAmbient();
-        }
+      this.isMuted = false;
+      this.initContext();
+      if (this.ctx && this.ctx.state === 'suspended') {
+        this.ctx.resume();
       }
-      window.removeEventListener('pointerdown', unlock);
-      window.removeEventListener('keydown', unlock);
-      window.removeEventListener('touchstart', unlock);
-      window.removeEventListener('scroll', unlock);
+      if (!this.isPlayingAmbient) {
+        this.startAmbient();
+      }
+      ['pointerdown', 'pointermove', 'keydown', 'touchstart', 'scroll', 'click'].forEach(evt => {
+        window.removeEventListener(evt, unlock);
+      });
     };
 
-    window.addEventListener('pointerdown', unlock, { passive: true });
-    window.addEventListener('keydown', unlock, { passive: true });
-    window.addEventListener('touchstart', unlock, { passive: true });
-    window.addEventListener('scroll', unlock, { passive: true });
+    ['pointerdown', 'pointermove', 'keydown', 'touchstart', 'scroll', 'click'].forEach(evt => {
+      window.addEventListener(evt, unlock, { passive: true, once: true });
+    });
   }
 
   public toggleMute(): boolean {

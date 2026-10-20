@@ -1,19 +1,15 @@
 import React from 'react';
-import { Volume2, VolumeX, Sparkles, Flower2 } from 'lucide-react';
+import { Volume2, VolumeX, Flower2 } from 'lucide-react';
 
 interface NavbarProps {
   isMuted: boolean;
   onToggleSound: () => void;
-  petalsActive: boolean;
-  onTogglePetals: () => void;
   onNavigate: (sectionId: string) => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   isMuted,
   onToggleSound,
-  petalsActive,
-  onTogglePetals,
   onNavigate,
 }) => {
   return (
@@ -34,37 +30,23 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
         </button>
 
-        {/* Action Controls: Auto-active music & petals */}
+        {/* Minimal sound button (sound autoplays by default) */}
         <div className="header-actions">
-          {/* Petals Toggle */}
-          <button
-            onClick={onTogglePetals}
-            className={`action-btn ${petalsActive ? 'active' : ''}`}
-            title={petalsActive ? 'Tạm dừng cánh hoa rơi' : 'Bật hiệu ứng cánh hoa'}
-            aria-label={petalsActive ? 'Tắt cánh hoa rơi' : 'Bật cánh hoa rơi'}
-          >
-            <Sparkles size={16} />
-            <span className="btn-label-desktop">
-              {petalsActive ? 'Cánh hoa: Bật' : 'Cánh hoa: Tắt'}
-            </span>
-          </button>
-
-          {/* Sound Toggle */}
           <button
             onClick={onToggleSound}
             className={`action-btn sound-btn ${!isMuted ? 'active-sound' : ''}`}
-            title={!isMuted ? 'Tắt giai điệu nền' : 'Bật giai điệu piano êm dịu'}
+            title={!isMuted ? 'Tắt âm thanh' : 'Bật âm thanh'}
             aria-label={!isMuted ? 'Tắt âm thanh' : 'Bật âm thanh'}
           >
             {!isMuted ? (
               <>
                 <Volume2 size={16} className="sound-pulse" />
-                <span className="btn-label-desktop">Giai điệu: Đang phát 🎵</span>
+                <span>Nhạc đang phát 🎵</span>
               </>
             ) : (
               <>
                 <VolumeX size={16} />
-                <span className="btn-label-desktop">Âm thanh: Tắt</span>
+                <span>Bật nhạc</span>
               </>
             )}
           </button>
