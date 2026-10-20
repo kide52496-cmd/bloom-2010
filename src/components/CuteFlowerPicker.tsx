@@ -15,10 +15,11 @@ import type { FlowerWish } from '../types';
 import { soundManager } from '../utils/sound';
 
 export const CuteFlowerPicker: React.FC = () => {
-  // Pre-select first adorable flower so it's blooming right away!
-  const [selectedFlower, setSelectedFlower] = useState<FlowerWish | null>(() => BOTANICAL_FLOWERS[0]);
+  // Initially null so friends get the fun surprise of picking their own flower first!
+  const [selectedFlower, setSelectedFlower] = useState<FlowerWish | null>(null);
   const [copied, setCopied] = useState(false);
   const [shared, setShared] = useState(false);
+  const cardRef = React.useRef<HTMLDivElement | null>(null);
 
   const handlePickFlower = (flower: FlowerWish) => {
     setSelectedFlower(flower);
@@ -26,12 +27,16 @@ export const CuteFlowerPicker: React.FC = () => {
 
     // Cute pastel confetti explosion with high spread
     confetti({
-      particleCount: 60,
-      spread: 85,
-      origin: { y: 0.6 },
+      particleCount: 65,
+      spread: 90,
+      origin: { y: 0.65 },
       colors: ['#FF758F', '#FFB3C1', '#D4A373', '#D8B777', '#8E7DBE', '#FFF0F3'],
       disableForReducedMotion: true,
     });
+
+    setTimeout(() => {
+      cardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 120);
   };
 
   const handleCopyCuteWish = async () => {
@@ -111,7 +116,7 @@ export const CuteFlowerPicker: React.FC = () => {
                 </span>
               </div>
               <div className="cute-tap-hint">
-                <span>{isSelected ? 'Đang nở' : 'Chọn em'}</span>
+                <span>{isSelected ? 'Đã chọn 🌸' : 'Chọn em'}</span>
                 <Sparkles size={12} />
               </div>
             </button>
@@ -121,7 +126,7 @@ export const CuteFlowerPicker: React.FC = () => {
 
       {/* Revealed Cute Card */}
       {selectedFlower && (
-        <div className="revealed-cute-card-wrapper animate-bounce-in">
+        <div ref={cardRef} className="revealed-cute-card-wrapper animate-bounce-in">
           <div 
             className="revealed-cute-card"
             style={{ 
