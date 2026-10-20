@@ -23,14 +23,14 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({
         {/* Emotion-driven Quote */}
         <div className="closing-quote-card">
           <p className="closing-main-quote">
-            “Thế giới đẹp hơn khi có những người phụ nữ biết yêu thương, biết ước mơ và không ngừng viết nên câu chuyện của chính mình.”
+            “Thanh xuân trở nên rực rỡ hơn chính là nhờ có những người bạn tuyệt vời như bạn!”
           </p>
 
           <p className="closing-wish-lead">
-            Chúc mừng Ngày Phụ nữ Việt Nam 20/10.
+            Chúc mừng Ngày Phụ Nữ Việt Nam 20/10 đến hội bạn thân! 🌸
             <br />
             <span className="closing-wish-highlight">
-              Mong yêu thương luôn tìm được đường đến bên bạn.
+              Chúc bạn ăn ngon không béo, shopping không nhìn giá và nụ cười luôn tỏa nắng!
             </span>
           </p>
 
@@ -39,10 +39,10 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({
             <button
               onClick={onScrollToGenerator}
               className="btn-closing-cta"
-              aria-label="Tạo thiệp gửi một người đặc biệt"
+              aria-label="Tạo thiệp gửi một người bạn đặc biệt"
             >
               <Heart size={18} className="btn-icon" />
-              <span>Gửi món quà này cho một người đặc biệt</span>
+              <span>Gửi thiệp này cho một người bạn thân 💌</span>
               <Sparkles size={16} className="btn-sparkle" />
             </button>
           </div>
@@ -50,13 +50,13 @@ export const ClosingSection: React.FC<ClosingSectionProps> = ({
           {/* Creator Signature Note */}
           <div className="closing-signature-card">
             <div className="signature-badge">
-              <span>Được thiết kế với tất cả sự trân quý</span>
+              <span>Món quà số đặc biệt 20/10</span>
             </div>
             <p className="signature-author">
-              Dành tặng những người phụ nữ Việt Nam yêu dấu
+              Thương gửi từ người bạn: Dương 💖
             </p>
             <p className="signature-subtext">
-              Dự án BLOOM 20.10 · Bản quyền ý niệm & lời chúc: <strong>Dương</strong>
+              Dự án BLOOM 20.10 Friends Edition
             </p>
           </div>
         </div>

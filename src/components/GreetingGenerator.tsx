@@ -44,23 +44,23 @@ const getInitialFromUrl = () => {
 
 export const GreetingGenerator: React.FC<GreetingGeneratorProps> = ({ initialData }) => {
   const [recipient, setRecipient] = useState<string>(
-    () => initialData?.recipient || getInitialFromUrl().recipient || 'Mẹ yêu dấu'
+    () => initialData?.recipient || getInitialFromUrl().recipient || 'Cô bạn thân yêu'
   );
   const [sender, setSender] = useState<string>(
     () => initialData?.sender || getInitialFromUrl().sender || 'Dương'
   );
   const [relationship, setRelationship] = useState<Relationship>(
-    () => initialData?.relationship || getInitialFromUrl().relationship || 'mother'
+    () => initialData?.relationship || getInitialFromUrl().relationship || 'friend'
   );
   const [style, setStyle] = useState<WishStyle>(
-    () => initialData?.style || getInitialFromUrl().style || 'gentle'
+    () => initialData?.style || getInitialFromUrl().style || 'playful'
   );
   const [message, setMessage] = useState<string>(() => {
     const urlData = getInitialFromUrl();
     if (initialData?.message) return initialData.message;
     if (urlData.message) return urlData.message;
-    const rel = initialData?.relationship || urlData.relationship || 'mother';
-    const st = initialData?.style || urlData.style || 'gentle';
+    const rel = initialData?.relationship || urlData.relationship || 'friend';
+    const st = initialData?.style || urlData.style || 'playful';
     return SMART_WISH_TEMPLATES[rel][st];
   });
   const [isCustomEdited, setIsCustomEdited] = useState<boolean>(() => {

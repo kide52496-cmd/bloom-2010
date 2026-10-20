@@ -1,16 +1,14 @@
 import React from 'react';
-import { Mail, Heart, Sparkles, ChevronDown, Smile } from 'lucide-react';
+import { Heart, Sparkles, ChevronDown, Smile } from 'lucide-react';
 
 interface HeroSectionProps {
-  onOpenGift: () => void;
+  onPickFlower: () => void;
   onSendWish: () => void;
-  onPickFlower?: () => void;
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
-  onOpenGift,
-  onSendWish,
   onPickFlower,
+  onSendWish,
 }) => {
   return (
     <section id="hero" className="hero-section">
@@ -71,65 +69,56 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         {/* Date & Occasion Badge */}
         <div className="hero-badge animate-fade-in">
           <Sparkles size={14} className="badge-sparkle" />
-          <span>20.10 · NGÀY PHỤ NỮ VIỆT NAM</span>
+          <span>20.10 · DÀNH TẶNG HỘI BẠN THÂN</span>
           <span className="badge-dot">•</span>
           <span className="badge-highlight">BLOOM 20.10</span>
         </div>
 
         {/* Main Headline */}
         <h1 className="hero-title animate-slide-up">
-          Gửi đến những đóa hoa
+          Gửi đến cô bạn
           <br />
-          <span className="hero-title-accent">tuyệt vời nhất.</span>
+          <span className="hero-title-accent">tuyệt vời nhất trần đời! 🌸</span>
         </h1>
 
         {/* Subtitle Message */}
         <p className="hero-subtitle animate-slide-up-delay">
-          Một chút dịu dàng, một chút yêu thương, dành riêng cho bạn trong ngày đặc biệt này.
+          Chào bạn iu! Nhân ngày Phụ nữ Việt Nam 20/10, <strong>Dương</strong> có một món quà nhỏ siêu cấp đáng yêu gửi riêng cho bạn.
           <br className="desktop-break" />
-          Có những điều dịu dàng xứng đáng được nâng niu. Hôm nay, hãy để mọi yêu thương được gọi tên.
+          Chạm nhẹ vào đóa hoa bạn thích để bốc thăm nhận lời chúc và đặc quyền may mắn nhé!
         </p>
 
         {/* Call to Actions */}
         <div className="hero-cta-group animate-slide-up-delay-2">
-          {onPickFlower && (
-            <button
-              onClick={onPickFlower}
-              className="btn-primary"
-              style={{
-                background: 'linear-gradient(135deg, #FF758F, #C02654)',
-                boxShadow: '0 12px 28px rgba(255, 117, 143, 0.35)',
-              }}
-              aria-label="Chọn hoa nhận lời chúc cute cho bạn bè"
-            >
-              <Smile size={18} className="btn-icon" />
-              <span>Hái đóa hoa cute tặng bạn 🌸</span>
-              <div className="btn-shine" aria-hidden="true" />
-            </button>
-          )}
-
           <button
-            onClick={onOpenGift}
-            className="btn-secondary"
-            aria-label="Mở phong thư chúc mừng 20/10"
+            onClick={onPickFlower}
+            className="btn-primary"
+            style={{
+              background: 'linear-gradient(135deg, #FF758F, #C02654)',
+              boxShadow: '0 12px 28px rgba(255, 117, 143, 0.35)',
+              padding: '1.05rem 2.25rem',
+              fontSize: '1.05rem',
+            }}
+            aria-label="Chọn hoa nhận lời chúc cute cho bạn bè"
           >
-            <Mail size={18} className="btn-icon" />
-            <span>Mở phong thư tri ân</span>
+            <Smile size={20} className="btn-icon" />
+            <span>Hái hoa nhận quà cute nè 🌷</span>
+            <div className="btn-shine" aria-hidden="true" />
           </button>
 
           <button
             onClick={onSendWish}
             className="btn-secondary"
-            aria-label="Tự tay viết thiệp gửi người thương"
+            aria-label="Tự tay viết thiệp gửi bạn bè"
           >
             <Heart size={18} className="btn-icon" />
-            <span>Tự tạo thiệp riêng</span>
+            <span>Viết thiệp gửi bạn thân 💌</span>
           </button>
         </div>
 
         {/* Subtle Indicator */}
-        <div className="hero-scroll-indicator" onClick={onOpenGift}>
-          <span className="scroll-text">Khám phá món quà</span>
+        <div className="hero-scroll-indicator" onClick={onPickFlower}>
+          <span className="scroll-text">Hái hoa ngay</span>
           <ChevronDown size={18} className="scroll-arrow" />
         </div>
       </div>

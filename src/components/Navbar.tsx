@@ -39,34 +39,22 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             onClick={() => onNavigate('cute-picker')}
             className="nav-link-btn highlight"
-            style={{ background: 'rgba(255, 117, 143, 0.2)', color: '#C02654' }}
+            style={{ background: 'rgba(255, 117, 143, 0.25)', color: '#C02654', fontWeight: 700 }}
           >
             <span>Hái Hoa Cute 🌸</span>
-          </button>
-          <button
-            onClick={() => onNavigate('envelope')}
-            className="nav-link-btn"
-          >
-            Thiệp Tri Ân
           </button>
           <button
             onClick={() => onNavigate('generator')}
             className="nav-link-btn"
           >
             <Heart size={14} className="inline-icon" />
-            Tạo Thiệp Riêng
-          </button>
-          <button
-            onClick={() => onNavigate('garden')}
-            className="nav-link-btn"
-          >
-            Vườn Hoa
+            Viết Thiệp Bạn Thân 💌
           </button>
           <button
             onClick={() => onNavigate('closing')}
             className="nav-link-btn"
           >
-            Lời Kết
+            Lời Chúc Từ Dương ✨
           </button>
         </nav>
 
